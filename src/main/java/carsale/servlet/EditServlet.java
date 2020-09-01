@@ -18,7 +18,7 @@ public class EditServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(EditServlet.class);
 
-    private static final String NEW_USER_ID = "0";
+    private static final String NEW_ITEM_ID = "0";
     private static final String CHECKING_FLAG = "1";
 
     private GregorianCalendar getCurrent() {
@@ -41,7 +41,7 @@ public class EditServlet extends HttpServlet {
         }
 
         String check = req.getParameter("check");
-        if ("1".equals(check)) {
+        if (CHECKING_FLAG.equals(check)) {
             doPost(req, resp);
         } else {
             req.getRequestDispatcher("WEB-INF/templates/edit.jsp").forward(req, resp);
@@ -58,7 +58,7 @@ public class EditServlet extends HttpServlet {
         String check = req.getParameter("check");
         Author author = (Author) req.getSession().getAttribute("author");
 
-        if (NEW_USER_ID.equals(id)) {
+        if (NEW_ITEM_ID.equals(id)) {
             Item item = new Item(desc);
             item.setCreated(getCurrent());
             item.setAuthor(author);

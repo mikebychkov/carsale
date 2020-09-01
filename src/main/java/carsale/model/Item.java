@@ -33,6 +33,7 @@ public class Item {
     private CarBodyType body;
 
     private String color;
+    private String photo;
 
     public Item() {
     }
