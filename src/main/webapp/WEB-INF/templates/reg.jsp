@@ -34,7 +34,7 @@
         }
     </script>
 
-    <title>TODO List</title>
+    <title>CAR SALE</title>
 </head>
 <body>
 <div class="container pt-3">
@@ -55,11 +55,11 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Почта</label>
-                        <input type="text" class="form-control" name="email" id="email">
+                        <input type="email" class="form-control" name="email" id="email">
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль</label>
-                        <input type="text" class="form-control" name="password" id="password">
+                        <input type="password" class="form-control" name="password" id="password">
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MultithreadingTest {
 
-    private static final Logger logger = LogManager.getLogger(CarBrandDBTest.class);
+    private static final Logger logger = LogManager.getLogger(MultithreadingTest.class);
 
     @Test
     public void multiThreadEditingItemList() throws InterruptedException {

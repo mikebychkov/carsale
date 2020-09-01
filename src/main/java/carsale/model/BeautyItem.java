@@ -8,13 +8,21 @@ public class BeautyItem {
     private String created;
     private String done;
     private String author;
+    private String brand;
+    private String model;
+    private String body;
+    private String photo;
 
     public BeautyItem(Item item) {
         id = item.getId();
         desc = item.getDesc();
         created = getDate(item.getCreated());
         done = getDate(item.getDone());
-        author = getAuthor(item.getAuthor());
+        author = getRequisite(item.getAuthor());
+        brand = getRequisite(item.getBrand());
+        model = getRequisite(item.getModel());
+        body = getRequisite(item.getBody());
+        photo = getRequisite(item.getPhoto());
     }
 
     private String getDate(GregorianCalendar gc) {
@@ -24,11 +32,11 @@ public class BeautyItem {
         return gc.getTime().toString();
     }
 
-    private String getAuthor(Author author) {
-        if (author == null) {
+    private <T> String getRequisite(T t) {
+        if (t == null) {
             return "";
         }
-        return author.getName();
+        return t.toString();
     }
 
     public Integer getId() {
@@ -69,5 +77,20 @@ public class BeautyItem {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "BeautyItem{" +
+                "id=" + id +
+                ", desc='" + desc + '\'' +
+                ", created='" + created + '\'' +
+                ", done='" + done + '\'' +
+                ", author='" + author + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", body='" + body + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
     }
 }

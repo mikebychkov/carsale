@@ -72,4 +72,13 @@
     <url-pattern>/reg.do</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>PhotoServlet</servlet-name>
+    <servlet-class>carsale.servlet.PhotoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhotoServlet</servlet-name>
+    <url-pattern>/photo.do</url-pattern>
+  </servlet-mapping>
+
 </web-app>

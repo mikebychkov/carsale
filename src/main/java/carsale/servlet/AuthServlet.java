@@ -32,7 +32,7 @@ public class AuthServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/index.do");
         } else {
             req.setAttribute("error", "Неверный email или пароль");
-            req.getRequestDispatcher("auth.do").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/templates/login.jsp").forward(req, resp);
         }
     }
 }
