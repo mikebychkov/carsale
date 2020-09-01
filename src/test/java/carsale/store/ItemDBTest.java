@@ -13,10 +13,10 @@ public class ItemDBTest {
     @Test
     public void storeAndGet() {
 
-        CarBrand brand = new CarBrand("Mercedes");
+        CarBrand brand = new CarBrand("Toyota");
 
-        Item item1 = new Item("Mercedes AB");
-        Item item2 = new Item("Mercedes XZ");
+        Item item1 = new Item("Toyota Corola");
+        Item item2 = new Item("Toyota Supra");
 
         item1.setBrand(brand);
         item2.setBrand(brand);
@@ -26,7 +26,7 @@ public class ItemDBTest {
         ItemDB.save(item1);
         ItemDB.save(item2);
 
-        List<Item> rslItems = CarBrandDB.getAll().get(0).getItems();
+        List<Item> rslItems = CarBrandDB.getByName("Toyota").get(0).getItems();
 
         rslItems.forEach(it -> System.out.println(it.getDesc()));
 

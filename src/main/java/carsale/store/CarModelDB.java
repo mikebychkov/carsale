@@ -1,6 +1,8 @@
 package carsale.store;
 
+import carsale.model.CarBrand;
 import carsale.model.CarModel;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -26,6 +28,14 @@ public class CarModelDB {
 
     public static CarModel get(int id) {
         return ModelDB.tx(session -> session.get(CarModel.class, id));
+    }
+
+    public static List<CarModel> getByName(String name) {
+        return ModelDB.tx(session -> {
+            Query q = session.createQuery("FROM carsale.model.CarModel WHERE name = ?1");
+            q.setParameter(1, name);
+            return q.list();
+        });
     }
 
     public static List<CarModel> getAll() {
