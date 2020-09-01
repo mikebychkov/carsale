@@ -12,8 +12,12 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <mapping class="carsale.model.Item" />
         <mapping class="carsale.model.Author" />
+        <mapping class="carsale.model.CarBrand" />
+        <mapping class="carsale.model.CarModel" />
+        <mapping class="carsale.model.CarBodyType" />
     </session-factory>
 </hibernate-configuration>

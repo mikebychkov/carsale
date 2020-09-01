@@ -20,6 +20,20 @@ public class Item {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private CarBrand brand;
+
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private CarModel model;
+
+    @ManyToOne
+    @JoinColumn(name = "body_id")
+    private CarBodyType body;
+
+    private String color;
+
     public Item() {
     }
 
@@ -70,6 +84,38 @@ public class Item {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public CarBrand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(CarBrand brand) {
+        this.brand = brand;
+    }
+
+    public CarModel getModel() {
+        return model;
+    }
+
+    public void setModel(CarModel model) {
+        this.model = model;
+    }
+
+    public CarBodyType getBody() {
+        return body;
+    }
+
+    public void setBody(CarBodyType body) {
+        this.body = body;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Override
