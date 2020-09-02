@@ -1,3 +1,7 @@
 This small application is car market place application type.
 
-It is example of Servlet MVC web-application with Hibernate used as ORM. 
+![ScreenShot](img/carsale_list.png)  
+![ScreenShot](img/carsale_edit.png)
+
+It is example of Java EE Servlet MVC web-application with Hibernate used as ORM.
+Actively used AJAX JavaScript technology and Bootstrap 3 HTML patterns.  
