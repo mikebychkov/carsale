@@ -37,6 +37,19 @@ public class CarBrandDB {
         });
     }
 
+    public static CarBrand getByNameOrNew(String name) {
+        if (name.isEmpty()) {
+            return null;
+        }
+        List<CarBrand> list = getByName(name);
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        CarBrand newBrand = new CarBrand(name);
+        save(newBrand);
+        return newBrand;
+    }
+
     public static List<CarBrand> getAll() {
         return ModelDB.tx(session -> session.createQuery("FROM carsale.model.CarBrand").list());
     }

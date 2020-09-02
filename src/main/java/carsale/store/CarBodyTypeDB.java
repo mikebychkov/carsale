@@ -1,7 +1,6 @@
 package carsale.store;
 
 import carsale.model.CarBodyType;
-import carsale.model.CarBrand;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -36,6 +35,19 @@ public class CarBodyTypeDB {
             q.setParameter(1, name);
             return q.list();
         });
+    }
+
+    public static CarBodyType getByNameOrNew(String name) {
+        if (name.isEmpty()) {
+            return null;
+        }
+        List<CarBodyType> list = getByName(name);
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        CarBodyType newType = new CarBodyType(name);
+        save(newType);
+        return newType;
     }
 
     public static List<CarBodyType> getAll() {

@@ -47,6 +47,11 @@
                     content += "</td>";
                     //
                     content += "<td>" + d.desc + "</td>";
+                    content += "<td>" + d.brand + "</td>";
+                    content += "<td>" + d.model + "</td>";
+                    content += "<td>" + d.body + "</td>";
+                    content += "<td>" + d.color + "</td>";
+                    content += "<td>" + "<img src='photo.do?name=" + d.photo + "' width='200' height='200' class=\"img-responsive\"/></td>";
                     content += "<td>" + d.author + "</td>";
                     content += "<td>" + d.created + "</td>";
                     content += "<td>" + d.done + "</td>";
@@ -97,6 +102,11 @@
             <th><i class="fa fa-check-square-o" aria-hidden="true"></i></th>
             <th><i class="fa fa-edit mr-3"></i></th>
             <th>Description</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Body</th>
+            <th>Color</th>
+            <th>Photo</th>
             <th>Author</th>
             <th>Created</th>
             <th>Done</th>

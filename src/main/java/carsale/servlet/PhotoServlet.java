@@ -39,8 +39,7 @@ public class PhotoServlet extends HttpServlet {
             out.write(filePart.getInputStream().readAllBytes());
         }
         //
-        String idParam = req.getParameter("id");
-        int id = getInt(idParam);
+        int id = getInt(req.getParameter("id"));
         if (id != 0) {
             Item item = ItemDB.getItem(id);
             item.setPhoto(fileName);

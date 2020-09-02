@@ -12,6 +12,7 @@ public class BeautyItem {
     private String model;
     private String body;
     private String photo;
+    private String color;
 
     public BeautyItem(Item item) {
         id = item.getId();
@@ -23,6 +24,7 @@ public class BeautyItem {
         model = getRequisite(item.getModel());
         body = getRequisite(item.getBody());
         photo = getRequisite(item.getPhoto());
+        color = item.getColor();
     }
 
     private String getDate(GregorianCalendar gc) {
@@ -77,6 +79,46 @@ public class BeautyItem {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Override

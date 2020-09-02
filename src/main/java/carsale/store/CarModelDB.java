@@ -1,6 +1,5 @@
 package carsale.store;
 
-import carsale.model.CarBrand;
 import carsale.model.CarModel;
 import org.hibernate.query.Query;
 
@@ -36,6 +35,19 @@ public class CarModelDB {
             q.setParameter(1, name);
             return q.list();
         });
+    }
+
+    public static CarModel getByNameOrNew(String name) {
+        if (name.isEmpty()) {
+            return null;
+        }
+        List<CarModel> list = getByName(name);
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        CarModel newModel = new CarModel(name);
+        save(newModel);
+        return newModel;
     }
 
     public static List<CarModel> getAll() {

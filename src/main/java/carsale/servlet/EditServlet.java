@@ -1,5 +1,8 @@
 package carsale.servlet;
 
+import carsale.store.CarBodyTypeDB;
+import carsale.store.CarBrandDB;
+import carsale.store.CarModelDB;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -32,12 +35,21 @@ public class EditServlet extends HttpServlet {
 
         logger.debug("=== doGet ===");
 
-        String id = req.getParameter("id");
+        int id = getInt(req.getParameter("id"));
 
-        if ("new".equals(id)) {
-            req.setAttribute("item", new Item(0, ""));
+        Item item = null;
+        if (id == 0) {
+            item = new Item(0, "");
         } else {
-            req.setAttribute("item", ItemDB.getItem(Integer.parseInt(id)));
+            item = ItemDB.getItem(id);
+        }
+        req.setAttribute("item", item);
+
+        // ITEM CHANGE AUTHORIZATION
+        Author author = (Author) req.getSession().getAttribute("author");
+        if (id != 0 && !author.equals(item.getAuthor())) {
+            resp.sendRedirect(req.getContextPath() + "/index.do");
+            return;
         }
 
         String check = req.getParameter("check");
@@ -57,29 +69,55 @@ public class EditServlet extends HttpServlet {
         String desc = req.getParameter("desc");
         String check = req.getParameter("check");
         String photo = req.getParameter("photo");
+        String brand = req.getParameter("brand");
+        String model = req.getParameter("model");
+        String body = req.getParameter("body");
+        String color = req.getParameter("color");
+
         Author author = (Author) req.getSession().getAttribute("author");
 
-        if (NEW_ITEM_ID.equals(id)) {
-            Item item = new Item(desc);
-            item.setCreated(getCurrent());
-            item.setPhoto(photo);
-            item.setAuthor(author);
-            ItemDB.save(item);
-        } else if (CHECKING_FLAG.equals(check)) {
+        if (CHECKING_FLAG.equals(check)) {
             Item item = (Item) req.getAttribute("item");
             if (item.getDone() == null) {
                 item.setDone(getCurrent());
             } else {
                 item.setDone(null);
             }
-            ItemDB.saveOrUpdate(item);
+            ItemDB.update(item);
         } else {
-            Item item = ItemDB.getItem(Integer.parseInt(id));
+
+            Item item;
+            if (NEW_ITEM_ID.equals(id)) {
+                item = new Item(desc);
+                item.setCreated(getCurrent());
+                item.setAuthor(author);
+            } else {
+                item = ItemDB.getItem(Integer.parseInt(id));
+            }
+
             item.setDesc(desc);
             item.setPhoto(photo);
-            ItemDB.saveOrUpdate(item);
+            item.setColor(color);
+
+            item.setBrand(CarBrandDB.getByNameOrNew(brand));
+            item.setModel(CarModelDB.getByNameOrNew(model));
+            item.setBody(CarBodyTypeDB.getByNameOrNew(body));
+
+            if (NEW_ITEM_ID.equals(id)) {
+                ItemDB.save(item);
+            } else {
+                ItemDB.update(item);
+            }
         }
 
         resp.sendRedirect(req.getContextPath() + "/index.do");
+    }
+
+    private int getInt(String param) {
+        try {
+            return Integer.parseInt(param);
+        } catch (Exception e) {
+        }
+        return 0;
     }
 }

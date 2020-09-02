@@ -1,6 +1,7 @@
 package carsale.filter;
 
 import carsale.model.Author;
+import carsale.model.Item;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -15,18 +16,25 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest sreq, ServletResponse sresp, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) sreq;
         HttpServletResponse resp = (HttpServletResponse) sresp;
         String uri = req.getRequestURI();
+
+        // LISTED PAGES DONT NEED AUTHORIZATION
         if (uri.endsWith("auth.do") || uri.endsWith("reg.do") || uri.endsWith("index.do")) {
             chain.doFilter(sreq, sresp);
             return;
         }
+
         Author author = (Author) req.getSession().getAttribute("author");
+
+        // NOT AUTHORIZED
         if (author == null || author.getId() == 0) {
             resp.sendRedirect(req.getContextPath() + "/auth.do");
             return;
         }
+
         chain.doFilter(sreq, sresp);
     }
 
