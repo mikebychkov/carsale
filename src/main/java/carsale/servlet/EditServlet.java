@@ -56,11 +56,13 @@ public class EditServlet extends HttpServlet {
         String id = req.getParameter("id");
         String desc = req.getParameter("desc");
         String check = req.getParameter("check");
+        String photo = req.getParameter("photo");
         Author author = (Author) req.getSession().getAttribute("author");
 
         if (NEW_ITEM_ID.equals(id)) {
             Item item = new Item(desc);
             item.setCreated(getCurrent());
+            item.setPhoto(photo);
             item.setAuthor(author);
             ItemDB.save(item);
         } else if (CHECKING_FLAG.equals(check)) {
@@ -74,6 +76,7 @@ public class EditServlet extends HttpServlet {
         } else {
             Item item = ItemDB.getItem(Integer.parseInt(id));
             item.setDesc(desc);
+            item.setPhoto(photo);
             ItemDB.saveOrUpdate(item);
         }
 

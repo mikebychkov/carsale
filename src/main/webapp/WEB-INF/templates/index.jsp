@@ -19,7 +19,7 @@
         function updateItemList() {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:8080/todolist/itemlist.do?list=' + ActualItems,
+                url: 'http://localhost:8080/carsale/itemlist.do?list=' + ActualItems,
                 dataType: 'json'
             }).done(function(data) {
                 let content = "";

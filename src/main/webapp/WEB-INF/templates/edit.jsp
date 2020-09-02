@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 </head>
 <body>
 
@@ -31,6 +32,7 @@
 
 <div class="container">
     <form class="form-horizontal" method="post" action='<%=request.getContextPath()%>/edit.do?id=${item.id}'>
+        <input type="hidden" id="photo" name="photo" value="">
         <div class="form-group">
             <label class="control-label col-sm-2" for="desc">Description:</label>
             <div class="col-sm-10">
@@ -45,14 +47,45 @@
     </form>
 </div>
 
+<script>
+    $(document).ready(function() {
+
+        $("#but_upload").click(function() {
+
+            let fd = new FormData();
+            let files = $('#file')[0].files[0];
+            fd.append('file',files);
+
+            $.ajax({
+                url: 'http://localhost:8080/carsale/photo.do',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false
+            }).done(function(response) {
+                $("#photo").attr("value", response);
+                let photo_url = "http://localhost:8080/carsale/photo.do?name=" + response;
+                $("#img").attr("src", photo_url); //response
+                $(".preview img").show(); // Display image element
+            }).fail(function(err) {
+                alert('file not uploaded: ' + err);
+            });
+
+        });
+    });
+</script>
+
 <div class="container">
-    <form action="<c:url value='/photo.do?id=${item.id}'/>" method="post" enctype="multipart/form-data">
-        <img src="<c:url value='/photo.do?name=${item.photo}'/>"/><br/>
-        <a href="<c:url value='/photo.do?name=${item.photo}'/>">Download</a><br/>
-        <div class="checkbox">
-            <input type="file" name="file">
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" id="photoform">
+        <div class="form-group">
+            <img id="img" src="<c:url value='/photo.do?name=${item.photo}'/>" width="100" height="100" /><br/>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <div class="form-group">
+            <input type="file" name="file" id="file" >
+        </div>
+        <div class="form-group">
+            <input type="button" class="button" value="Upload" id="but_upload" >
+        </div>
     </form>
 </div>
 
