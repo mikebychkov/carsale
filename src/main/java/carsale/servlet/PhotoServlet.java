@@ -3,6 +3,8 @@ package carsale.servlet;
 import carsale.model.Item;
 import carsale.store.ImgStore;
 import carsale.store.ItemDB;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.type.descriptor.sql.NumericTypeDescriptor;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,8 @@ import java.io.*;
 
 @MultipartConfig
 public class PhotoServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(PhotoServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,6 +59,7 @@ public class PhotoServlet extends HttpServlet {
         try {
             return Integer.parseInt(param);
         } catch (Exception e) {
+            logger.debug(e.getMessage());
         }
         return 0;
     }

@@ -15,7 +15,7 @@ public class AppContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("=== contextInitialized === BEGIN ===");
-        System.out.println(Storage.getInstance());
+        logger.info(Storage.getInstance());
         logger.info("=== contextInitialized === END ===");
     }
 

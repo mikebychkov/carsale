@@ -117,6 +117,7 @@ public class EditServlet extends HttpServlet {
         try {
             return Integer.parseInt(param);
         } catch (Exception e) {
+            logger.debug(e.getMessage());
         }
         return 0;
     }
