@@ -53,4 +53,8 @@ public class CarBrandDB {
     public static List<CarBrand> getAll() {
         return ModelDB.tx(session -> session.createQuery("FROM carsale.model.CarBrand").list());
     }
+
+    public static List<String> getAllNameList() {
+        return ModelDB.tx(session -> session.createQuery("SELECT name FROM carsale.model.CarBrand").list());
+    }
 }

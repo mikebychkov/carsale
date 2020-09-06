@@ -46,6 +46,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>BrandListServlet</servlet-name>
+    <servlet-class>carsale.servlet.BrandListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BrandListServlet</servlet-name>
+    <url-pattern>/brandlist.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>EditServlet</servlet-name>
     <servlet-class>carsale.servlet.EditServlet</servlet-class>
   </servlet>

@@ -22,6 +22,7 @@
                 fd.append('file',files);
 
                 $.ajax({
+                    //url: 'https://localhost:8443/carsale/photo.do',
                     url: 'http://localhost:8080/carsale/photo.do',
                     type: 'post',
                     data: fd,
@@ -29,6 +30,7 @@
                     processData: false
                 }).done(function(response) {
                     $("#photo").attr("value", response);
+                    //let photo_url = "https://localhost:8443/carsale/photo.do?name=" + response;
                     let photo_url = "http://localhost:8080/carsale/photo.do?name=" + response;
                     $("#img").attr("src", photo_url); //response
                     $(".preview img").show(); // Display image element

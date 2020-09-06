@@ -27,6 +27,8 @@ public class ItemListServlet extends HttpServlet {
         logger.debug("=== doGet === start query ===");
 
         String listType = req.getParameter("list");
+        String filter = req.getParameter("filter");
+        String brand = req.getParameter("brand");
 
         List<Item> list;
         if ("actual".equals(listType)) {

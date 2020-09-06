@@ -14,12 +14,13 @@
 
     <script>
 
-        let ActualItems = '';
+        let ItemFilter = '';
 
         function updateItemList() {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:8080/carsale/itemlist.do?list=' + ActualItems,
+                //url: 'https://localhost:8443/carsale/itemlist.do' + ItemFilter,
+                url: 'http://localhost:8080/carsale/itemlist.do' + ItemFilter,
                 dataType: 'json'
             }).done(function(data) {
                 let content = "";
@@ -62,15 +63,62 @@
             });
         }
 
-        function updateActualFlag() {
-            if (document.getElementById("actual0").checked) {
-                ActualItems = 'actual';
-            } else {
-                ActualItems = 'all';
-            }
+        function updateItemFilter() {
+            ItemFilter = '?list='
+             if (document.getElementById("actual0").checked) {
+                 ItemFilter += 'actual';
+             } else {
+                 ItemFilter += 'all';
+             }
+             let filterVal = document.getElementById("selectFilter").value;
+             if (filterVal = "all") {
+                 return;
+             }
+             ItemFilter += '&filter=' + filterVal;
+             if (filterVal = "brand") {
+                 let brandVal = document.getElementById("selectBrand").value;
+                 ItemFilter += '&brand=' + brandVal;
+             }
         }
 
-        updateItemList();
+        function brandFilerVisibility() {
+            let filter = document.getElementById("selectFilter").value;
+            if (filter == "brand") {
+                //document.getElementById("brandFilter").style.visibility = "visible";
+                $('.collapse').collapse("show");
+                updateBrandList();
+            } else {
+                //document.getElementById("brandFilter").style.visibility = "collapse";
+                $('.collapse').collapse("hide");
+            };
+        }
+
+        function updateBrandList() {
+            $.ajax({
+                type: 'GET',
+                //url: 'https://localhost:8443/carsale/brandlist.do',
+                url: 'http://localhost:8080/carsale/brandlist.do',
+                dataType: 'json'
+            }).done(function(data) {
+                let content = "";
+                for (let k in data) {
+                    let d = data[k];
+                    content += "<option value='"+ d +"'>";
+                    content += d;
+                    content += "</option>";
+                }
+                $('#selectBrand').html(content);
+            });
+        }
+
+        function onStart() {
+            brandFilerVisibility();
+            updateItemList();
+            updateBrandList();
+        }
+
+        $(document).ready(function() {onStart()});
+
     </script>
 
 </head>
@@ -93,28 +141,57 @@
 </nav>
 
 <div class="container">
-    <div class="checkbox">
-        <label><input type="checkbox" name="actual0" id="actual0" onchange="updateActualFlag(); updateItemList()"> Show only actual items</label>
+    <div class="form-group">
+        <div class="input-group">
+            <select class="form-control" id="selectFilter" onchange="brandFilerVisibility()">
+                <option value="all">All items</option>
+                <option value="day">By last day</option>
+                <option value="brand">By brand</option>
+                <option value="pic">With picture</option>
+            </select>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" onclick="updateItemFilter(); updateItemList()">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
     </div>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th><i class="fa fa-check-square-o" aria-hidden="true"></i></th>
-            <th><i class="fa fa-edit mr-3"></i></th>
-            <th>Description</th>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Body</th>
-            <th>Color</th>
-            <th>Photo</th>
-            <th>Author</th>
-            <th>Created</th>
-            <th>Done</th>
-        </tr>
-        </thead>
-        <tbody id="tdata">
-        </tbody>
-    </table>
+    <div class="collapse" id="brandFilter" >
+        <div class="form-group">
+            <select class="form-control" id="selectBrand">
+<%--                <option >Mercedes</option>--%>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-group">
+        <div class="checkbox">
+            <label><input type="checkbox" name="actual0" id="actual0" onchange="updateItemFilter(); updateItemList()"> Show only actual items</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th><i class="fa fa-check-square-o" aria-hidden="true"></i></th>
+                <th><i class="fa fa-edit mr-3"></i></th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Body</th>
+                <th>Color</th>
+                <th>Photo</th>
+                <th>Author</th>
+                <th>Created</th>
+                <th>Done</th>
+            </tr>
+            </thead>
+            <tbody id="tdata">
+            </tbody>
+        </table>
+    </div>
 </div>
 
 </body>
