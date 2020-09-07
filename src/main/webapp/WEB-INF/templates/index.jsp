@@ -64,21 +64,18 @@
         }
 
         function updateItemFilter() {
-            ItemFilter = '?list='
-             if (document.getElementById("actual0").checked) {
-                 ItemFilter += 'actual';
-             } else {
-                 ItemFilter += 'all';
-             }
-             let filterVal = document.getElementById("selectFilter").value;
-             if (filterVal = "all") {
-                 return;
-             }
-             ItemFilter += '&filter=' + filterVal;
-             if (filterVal = "brand") {
-                 let brandVal = document.getElementById("selectBrand").value;
-                 ItemFilter += '&brand=' + brandVal;
-             }
+            ItemFilter = '?list=';
+            if (document.getElementById("actual0").checked) {
+                ItemFilter += 'actual';
+            } else {
+                ItemFilter += 'all';
+            }
+            let filterVal = document.getElementById("selectFilter").value;
+            ItemFilter += '&filter=' + filterVal;
+            if (filterVal = "brand") {
+                let brandVal = document.getElementById("selectBrand").value;
+                ItemFilter += '&brand=' + brandVal;
+            }
         }
 
         function brandFilerVisibility() {
@@ -150,7 +147,7 @@
                 <option value="pic">With picture</option>
             </select>
             <div class="input-group-btn">
-                <button class="btn btn-default" type="submit" onclick="updateItemFilter(); updateItemList()">
+                <button class="btn btn-default" type="button" onclick="updateItemFilter(); updateItemList()">
                     <i class="glyphicon glyphicon-search"></i>
                 </button>
             </div>

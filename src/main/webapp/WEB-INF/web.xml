@@ -38,7 +38,7 @@
 
   <servlet>
     <servlet-name>ItemListServlet</servlet-name>
-    <servlet-class>carsale.servlet.ItemListServlet</servlet-class>
+    <servlet-class>carsale.servlet.itemlist.ItemListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ItemListServlet</servlet-name>
