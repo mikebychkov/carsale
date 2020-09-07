@@ -2,6 +2,9 @@ package carsale.store;
 
 import carsale.model.CarBrand;
 import carsale.model.Item;
+import carsale.servlet.itemlist.ItemListServlet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.query.Query;
 
 import java.util.Calendar;
@@ -10,6 +13,8 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class ItemDB {
+
+    private static final Logger logger = LogManager.getLogger(ItemDB.class);
 
     private ItemDB() {
     }
@@ -56,8 +61,9 @@ public class ItemDB {
         if (!filterBy.isEmpty()) {
             sj.add(filterBy);
         }
-        System.out.println("/".repeat(50) + " filter is: " + prepFilter(sj.toString()));
-        return prepFilter(sj.toString());
+        String rsl = prepFilter(sj.toString());
+        logger.debug("/".repeat(50) + " filter is: " + rsl);
+        return rsl;
     }
 
     public static List<Item> getItemList(boolean actual) {

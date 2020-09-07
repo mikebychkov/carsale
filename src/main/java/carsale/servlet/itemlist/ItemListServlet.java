@@ -34,8 +34,6 @@ public class ItemListServlet extends HttpServlet {
 
         Boolean actual = "actual".equals(listType);
 
-        System.out.println("/".repeat(50) + " actual is: " + actual);
-
         if (filter == null || filter.isEmpty()) {
             filter = "all";
         }
