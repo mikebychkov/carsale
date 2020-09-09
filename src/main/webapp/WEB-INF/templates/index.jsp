@@ -14,13 +14,10 @@
 
     <script>
 
-        let ItemFilter = '';
-
         function updateItemList() {
             $.ajax({
                 type: 'GET',
-                //url: 'https://localhost:8443/carsale/itemlist.do' + ItemFilter,
-                url: 'http://localhost:8080/carsale/itemlist.do' + ItemFilter,
+                url: 'http://localhost:8080/carsale/itemlist.do?' + getActual() + getFilter() + getBrand(),
                 dataType: 'json'
             }).done(function(data) {
                 let content = "";
@@ -63,29 +60,31 @@
             });
         }
 
-        function updateItemFilter() {
-            ItemFilter = '?list=';
+        function getActual() {
             if (document.getElementById("actual0").checked) {
-                ItemFilter += 'actual';
-            } else {
-                ItemFilter += 'all';
+                return 'list=actual';
             }
+            return 'list=all';
+        }
+
+        function getFilter() {
+            return '&filter=' + document.getElementById("selectFilter").value;
+        }
+
+        function getBrand() {
             let filterVal = document.getElementById("selectFilter").value;
-            ItemFilter += '&filter=' + filterVal;
-            if (filterVal = "brand") {
-                let brandVal = document.getElementById("selectBrand").value;
-                ItemFilter += '&brand=' + brandVal;
-            }
+            if (filterVal == "brand") {
+                return '&brand=' + document.getElementById("selectBrand").value;
+           }
+            return "";
         }
 
         function brandFilerVisibility() {
             let filter = document.getElementById("selectFilter").value;
             if (filter == "brand") {
-                //document.getElementById("brandFilter").style.visibility = "visible";
                 $('.collapse').collapse("show");
                 updateBrandList();
             } else {
-                //document.getElementById("brandFilter").style.visibility = "collapse";
                 $('.collapse').collapse("hide");
             };
         }
@@ -93,7 +92,6 @@
         function updateBrandList() {
             $.ajax({
                 type: 'GET',
-                //url: 'https://localhost:8443/carsale/brandlist.do',
                 url: 'http://localhost:8080/carsale/brandlist.do',
                 dataType: 'json'
             }).done(function(data) {

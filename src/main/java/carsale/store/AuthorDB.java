@@ -11,26 +11,26 @@ public class AuthorDB {
     }
 
     public static Author save(Author author) {
-        ModelDB.tx(session -> session.save(author));
+        ModelDB.execGet(session -> session.save(author));
         return author;
     }
 
     public static Author update(Author author) {
-        ModelDB.tx(session -> {session.update(author); return 0;});
+        ModelDB.exec(session -> session.update(author));
         return author;
     }
 
     public static Author saveOrUpdate(Author author) {
-        ModelDB.tx(session -> {session.saveOrUpdate(author); return 0;});
+        ModelDB.exec(session -> session.saveOrUpdate(author));
         return author;
     }
 
     public static Author get(int id) {
-        return ModelDB.tx(session -> session.get(Author.class, id));
+        return ModelDB.execGet(session -> session.get(Author.class, id));
     }
 
     public static Author get(String email) {
-        return ModelDB.tx(session -> {
+        return ModelDB.execGet(session -> {
             Query<Author> q = session.createQuery("FROM carsale.model.Author WHERE email = ?1");
             q.setParameter(1, email);
             List<Author> list = q.list();
@@ -42,6 +42,6 @@ public class AuthorDB {
     }
 
     public static List<Author> getAll() {
-        return ModelDB.tx(session -> session.createQuery("FROM carsale.model.Author").list());
+        return ModelDB.execGet(session -> session.createQuery("FROM carsale.model.Author").list());
     }
 }

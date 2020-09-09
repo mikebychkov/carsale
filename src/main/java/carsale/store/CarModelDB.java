@@ -11,26 +11,26 @@ public class CarModelDB {
     }
 
     public static CarModel save(CarModel model) {
-        ModelDB.tx(session -> session.save(model));
+        ModelDB.exec(session -> session.save(model));
         return model;
     }
 
     public static CarModel update(CarModel model) {
-        ModelDB.tx(session -> {session.update(model); return 0;});
+        ModelDB.exec(session -> session.update(model));
         return model;
     }
 
     public static CarModel saveOrUpdate(CarModel model) {
-        ModelDB.tx(session -> {session.saveOrUpdate(model); return 0;});
+        ModelDB.exec(session -> session.saveOrUpdate(model));
         return model;
     }
 
     public static CarModel get(int id) {
-        return ModelDB.tx(session -> session.get(CarModel.class, id));
+        return ModelDB.execGet(session -> session.get(CarModel.class, id));
     }
 
     public static List<CarModel> getByName(String name) {
-        return ModelDB.tx(session -> {
+        return ModelDB.execGet(session -> {
             Query q = session.createQuery("FROM carsale.model.CarModel WHERE name = ?1");
             q.setParameter(1, name);
             return q.list();
@@ -51,6 +51,6 @@ public class CarModelDB {
     }
 
     public static List<CarModel> getAll() {
-        return ModelDB.tx(session -> session.createQuery("FROM carsale.model.CarModel").list());
+        return ModelDB.execGet(session -> session.createQuery("FROM carsale.model.CarModel").list());
     }
 }
